@@ -1,0 +1,33 @@
+{
+    "name": "zelenin/yii2-rss",
+    "description": "Yii2 RSS extension adds RSS-feed to your site",
+    "version": "0.0.1",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "rss", "feed"],
+    "homepage": "https://github.com/zelenin/yii2-rss",
+    "time": "2014-07-05",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleksandr Zelenin",
+            "email": "aleksandr@zelenin.me",
+            "homepage": "http://zelenin.me",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/zelenin/yii2-rss/issues",
+        "source": "https://github.com/zelenin/yii2-rss"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "*",
+        "zelenin/rss-generator": "2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zelenin\\yii\\extensions\\Rss\\": ""
+        }
+    },
+    "minimum-stability": "stable"
+}
