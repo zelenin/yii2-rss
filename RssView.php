@@ -10,23 +10,24 @@ use Zelenin\Feed;
 
 class RssView extends BaseListView
 {
-    /** @var Feed $feed */
+    /** @var Feed */
     public $feed;
-    /** @var array $channel */
+    /** @var array */
     public $channel;
-    /** @var array $items */
+    /** @var array */
     public $items;
-    /** @var array $requiredChannelElements */
+    /** @var array */
     public $requiredChannelElements = ['title', 'link', 'description'];
-    /** @var array $requiredItemElements */
+    /** @var array */
     public $requiredItemElements = ['title', 'description', 'link', 'pubDate'];
 
-    /** @var array $channelAttributes */
+    /** @var array */
     private $channelAttributes = [];
-    /** @var array $itemAttributes */
+    /** @var array */
     private $itemAttributes = [];
 
     /**
+     * @inheritdoc
      * @throws InvalidConfigException
      */
     public function init()
@@ -50,6 +51,7 @@ class RssView extends BaseListView
     }
 
     /**
+     * @inheritdoc
      * @return string|Feed
      */
     public function run()
@@ -84,6 +86,9 @@ class RssView extends BaseListView
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function renderItems()
     {
         $models = $this->dataProvider->getModels();
