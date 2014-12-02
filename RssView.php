@@ -73,7 +73,7 @@ class RssView extends BaseListView
 
     public function renderChannel()
     {
-        $this->getFeed()->addChannel();
+        $this->getFeed()->addChannel(ArrayHelper::getValue($this->channel, 'link'));
         foreach ($this->channel as $element => $value) {
             if (is_string($value)) {
                 $this->getFeed()->addChannelElement($element, $value);
