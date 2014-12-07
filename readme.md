@@ -35,7 +35,13 @@ public function actionRss()
             'pageSize' => 10
         ],
     ]);
-    echo \Zelenin\yii\extensions\Rss\RssView::widget([
+    
+    $response = Yii::$app->getResponse();
+    $headers = $response->getHeaders();
+    
+    $headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
+    
+    $response->content = \Zelenin\yii\extensions\Rss\RssView::widget([
         'dataProvider' => $dataProvider,
         'channel' => [
             'title' => Yii::$app->name,
