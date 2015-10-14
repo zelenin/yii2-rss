@@ -10,24 +10,44 @@ use Zelenin\Feed;
 
 class RssView extends BaseListView
 {
-    /** @var Feed */
+    /**
+     * @var Feed
+     */
     public $feed;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     public $channel;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     public $items;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     public $requiredChannelElements = ['title', 'link', 'description'];
-    /** @var array */
+
+    /**
+     * @var array
+     */
     public $requiredItemElements = ['title', 'description', 'link', 'pubDate'];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $channelAttributes = [];
-    /** @var array */
+
+    /**
+     * @var array
+     */
     private $itemAttributes = [];
 
     /**
      * @inheritdoc
+     *
      * @throws InvalidConfigException
      */
     public function init()
@@ -52,6 +72,7 @@ class RssView extends BaseListView
 
     /**
      * @inheritdoc
+     *
      * @return string|Feed
      */
     public function run()
@@ -78,7 +99,7 @@ class RssView extends BaseListView
             if (is_string($value)) {
                 $this->getFeed()->addChannelElement($element, $value);
             } else {
-                $result = call_user_func($value, $this);
+                $result = call_user_func($value, $this, $this->getFeed());
                 if (is_string($result)) {
                     $this->getFeed()->addChannelElement($element, $result);
                 }
@@ -111,7 +132,7 @@ class RssView extends BaseListView
                     $this->getFeed()->addItemElement($value, ArrayHelper::getValue($model, $value));
                 }
             } else {
-                $result = call_user_func($value, $model, $this);
+                $result = call_user_func($value, $model, $this, $this->getFeed());
                 if (is_string($result)) {
                     $this->getFeed()->addItemElement($element, $result);
                 }
@@ -121,7 +142,9 @@ class RssView extends BaseListView
 
     /**
      * @param $configArray
+     *
      * @return array
+     *
      * @throws InvalidConfigException
      */
     private function getAttributes($configArray)

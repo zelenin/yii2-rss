@@ -41,13 +41,18 @@ public function actionRss()
     
     $headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
     
-    $response->content = \Zelenin\yii\extensions\Rss\RssView::widget([
+    echo \Zelenin\yii\extensions\Rss\RssView::widget([
         'dataProvider' => $dataProvider,
         'channel' => [
             'title' => Yii::$app->name,
             'link' => Url::toRoute('/', true),
             'description' => 'Posts ',
-            'language' => Yii::$app->language
+            'language' => function ($widget, \Zelenin\Feed $feed) {
+                return Yii::$app->language;
+            },
+            'image'=> function ($widget, \Zelenin\Feed $feed) {
+                $feed->addChannelImage('http://example.com/channel.jpg', 'http://example.com', 88, 31, 'Image description');
+            },
         ],
         'items' => [
             'title' => function ($model, $widget) {
