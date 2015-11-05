@@ -11,13 +11,13 @@ The preferred way to install this extension is through [Composer](http://getcomp
 Either run
 
 ```
-php composer.phar require zelenin/yii2-rss "dev-master"
+php composer.phar require zelenin/yii2-rss "~0.1"
 ```
 
 or add
 
 ```
-"zelenin/yii2-rss": "dev-master"
+"zelenin/yii2-rss": "~0.1"
 ```
 
 to the require section of your ```composer.json```
