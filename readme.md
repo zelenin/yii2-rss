@@ -35,12 +35,12 @@ public function actionRss()
             'pageSize' => 10
         ],
     ]);
-    
+
     $response = Yii::$app->getResponse();
     $headers = $response->getHeaders();
-    
+
     $headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
-    
+
     echo \Zelenin\yii\extensions\Rss\RssView::widget([
         'dataProvider' => $dataProvider,
         'channel' => [
@@ -55,23 +55,23 @@ public function actionRss()
             },
         ],
         'items' => [
-            'title' => function ($model, $widget) {
+            'title' => function ($model, $widget, \Zelenin\Feed $feed) {
                     return $model->name;
                 },
-            'description' => function ($model, $widget) {
+            'description' => function ($model, $widget, \Zelenin\Feed $feed) {
                     return StringHelper::truncateWords($model->content, 50);
                 },
-            'link' => function ($model, $widget) {
+            'link' => function ($model, $widget, \Zelenin\Feed $feed) {
                     return Url::toRoute(['post/view', 'id' => $model->id], true);
                 },
-            'author' => function ($model, $widget) {
+            'author' => function ($model, $widget, \Zelenin\Feed $feed) {
                     return $model->user->email . ' (' . $model->user->username . ')';
                 },
-            'guid' => function ($model, $widget) {
+            'guid' => function ($model, $widget, \Zelenin\Feed $feed) {
                     $date = \DateTime::createFromFormat('Y-m-d H:i:s', $model->updated_at);
                     return Url::toRoute(['post/view', 'id' => $model->id], true) . ' ' . $date->format(DATE_RSS);
                 },
-            'pubDate' => function ($model, $widget) {
+            'pubDate' => function ($model, $widget, \Zelenin\Feed $feed) {
                     $date = \DateTime::createFromFormat('Y-m-d H:i:s', $model->updated_at);
                     return $date->format(DATE_RSS);
                 }
