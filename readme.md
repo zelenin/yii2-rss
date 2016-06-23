@@ -44,7 +44,9 @@ public function actionRss()
     echo \Zelenin\yii\extensions\Rss\RssView::widget([
         'dataProvider' => $dataProvider,
         'channel' => [
-            'title' => Yii::$app->name,
+            'title' => function ($widget, \Zelenin\Feed $feed) {
+                    $feed->addChannelTitle(Yii::$app->name);
+            },
             'link' => Url::toRoute('/', true),
             'description' => 'Posts ',
             'language' => function ($widget, \Zelenin\Feed $feed) {
