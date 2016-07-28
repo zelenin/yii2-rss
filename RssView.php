@@ -11,6 +11,11 @@ use Zelenin\Feed;
 class RssView extends BaseListView
 {
     /**
+     * @var Models
+     */
+    public $models;
+    
+    /**
      * @var Feed
      */
     public $feed;
@@ -52,8 +57,8 @@ class RssView extends BaseListView
      */
     public function init()
     {
-        if ($this->dataProvider === null) {
-            throw new InvalidConfigException('The "dataProvider" property must be set');
+        if ($this->dataProvider === null AND $this->models === null) {
+            throw new InvalidConfigException('The "dataProvider" or "models" property must be set');
         }
         $this->channelAttributes = $this->getAttributes($this->channel);
         foreach ($this->requiredChannelElements as $channelElement) {
@@ -78,7 +83,9 @@ class RssView extends BaseListView
     public function run()
     {
         $this->renderChannel();
-        if ($this->dataProvider->getCount() > 0) {
+        if ($this->dataProvider !== null AND $this->dataProvider->getCount() > 0) {
+            $this->renderItems();
+        } elseif (!empty($this->models)) {
             $this->renderItems();
         }
         return $this->feed;
@@ -112,7 +119,9 @@ class RssView extends BaseListView
      */
     public function renderItems()
     {
-        $models = $this->dataProvider->getModels();
+        if ($this->dataProvider !== null) {
+            $this->models = $this->dataProvider->getModels();
+        }
         foreach ($models as $model) {
             $this->renderItem($model);
         }
