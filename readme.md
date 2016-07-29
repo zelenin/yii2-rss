@@ -36,8 +36,8 @@ public function actionRss()
         ],
     ]);
 
-    $response = Yii::$app->getResponse();
-    $headers = $response->getHeaders();
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+    $headers = \Yii::$app->response->headers;
 
     $headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
 
