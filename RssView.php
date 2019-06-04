@@ -79,6 +79,12 @@ class RssView extends BaseListView
     {
         $this->renderChannel();
         if ($this->dataProvider->getCount() > 0) {
+            foreach ($this->dataProvider->getPagination()->getLinks(true) as $key => $link) {
+                $this->feed->addChannelElement('link', null, [
+                    'rel' => $key,
+                    'href' => $link,
+                ]);
+            }
             $this->renderItems();
         }
         return $this->feed;
